@@ -1,25 +1,39 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import './App.css';
+import { Header } from './app/Header/Header';
+import { Footer } from './app/Footer/Footer';
+import { Main } from '../view/app/Main';
+import { fetchDataUsers } from '../services/UserService';
+import UserCard from './app/UserCard';
+import UsersLists from './app/UsersLists';
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      users: []
+    }
+  }
+fetchUsers = () => {
+
+  fetchDataUsers()
+          .then(usersList => {
+            this.setState({users: usersList})
+
+          })
+}
+        
+
+
   
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Fragment>
+        <Header />
+        <Main listOfUsers={this.usersList} />
+        <Footer />
+
+      </Fragment>
     );
   }
 }
